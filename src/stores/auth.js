@@ -1,9 +1,9 @@
 import { reactive } from 'vue'
 
 export const auth = reactive({
-    name : Rihards,
-    surname : Buks,
-    code : IT21054,
+    name : 'rihards',
+    surname : 'buks',
+    code : 'IT21054',
     favorite_songs : [],
 
 is_authenticated: localStorage.is_authenticated ?? false,
@@ -16,15 +16,15 @@ setUserData(name, surname, code) {
 
 authenticate(email, password) {
     if (email == 'rihardsniklavs.buks@va.lv' && password == '123456' && password >= 6){
-        localStorage.is_authenticated ?? true;
-        router.push('/');
+        localStorage.is_authenticated ?? true,
+        router.push({path: '/'});
     }
 },
 
 logout() {
     localStorage.clear();
-    localStorage.is_authenticated ?? false;
-    router.push('/login');
+    localStorage.is_authenticated ?? false,
+    router.push({path: '/login'});
 },
 
 toggleFavorite(songID) {
@@ -36,8 +36,8 @@ toggleFavorite(songID) {
 },
 
 getFavoriteSongs() {
-    for(let i = 0; i <= this.favorite_songs.length; i++){
-    }
+    // for(let i = 0; i <= this.favorite_songs.length; i++){
+    // }
 }
 
 })
