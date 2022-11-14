@@ -4,7 +4,7 @@ export const player = reactive({
     playlist   : [],
     now_playing: {}, // SONG OBJECT
     setPlaylist(songs) {
-
+        this.playlist(songs);
     },
     setNowPlaying(song) {
 
