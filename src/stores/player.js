@@ -4,16 +4,16 @@ export const player = reactive({
     playlist   : [],
     now_playing: {}, // SONG OBJECT
     setPlaylist(songs) {
-        this.playlist.push(songs);
+        playlist.push(songs);
     },
     setNowPlaying(song) {
-
+        this.now_playing(song); //atg
     },
     getNowPlayingSongId() {
         return this.now_playing?.id;
     },
     getNowPlaying() {
-
+        return this.now_playing; //atg
     },
     getNowPlayingAlbumID() {
         return this.now_playing?.album?.id ?? null;
@@ -31,10 +31,28 @@ export const player = reactive({
         return this.now_playing?.preview_url;
     },
     getNextSong(){
-
+        const index = 0;
+        for(let i = 0; i <= this.playlist.length; i++){
+            for(let j = 0; j <= this.now_playing.length; j ++){
+                if (this.playlist.indexOf[i] == this.now_playing.indexOf[j]){
+                    return index = this.playlist.indexOf[i + 1];
+                } else {
+                    return false;
+                }
+            }
+        }
     },
     getPreviousSong() {
-
+        const index = 0;
+        for(let i = 0; i <= this.playlist.length; i++){
+            for(let j = 0; j <= this.now_playing.length; j ++){
+                if (this.playlist.indexOf[i] == this.now_playing.indexOf[j]){
+                    return index = this.playlist.indexOf[i - 1];
+                } else {
+                    return false;
+                }
+            }
+        }
     },
     resetNowPlaying() {
         this.now_playing = {};
