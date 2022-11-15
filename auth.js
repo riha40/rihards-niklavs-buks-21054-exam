@@ -32,7 +32,7 @@ logout() {
 
 toggleFavorite(songID) { //mainīt
     for(i = 0; i<=this.favorite_songs.lenght; i++){
-    if (this.user.favorite_songs.includes(songID)){
+    if (this.user.favorite_songs[i].includes(songID)){
         this.user.favorite_songs.remove(this.user.favorite_songs[i]);
     } else {
         this.user.favorite_songs.push(this.user.favorite_songs[i]);
