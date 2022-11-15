@@ -30,7 +30,7 @@ export const player = reactive({
     getNowPlayingSongPreview() {
         return this.now_playing?.preview_url;
     },
-    getNextSong(){
+    getNextSong(){ //apskatīt vel
         const index = 0;
         for(let i = 0; i <= this.playlist.length; i++){
             for(let j = 0; j <= this.now_playing.length; j ++){
