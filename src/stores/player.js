@@ -30,29 +30,32 @@ export const player = reactive({
     getNowPlayingSongPreview() {
         return this.now_playing?.preview_url;
     },
-    getNextSong(){ //apskatīt vel
-        let index = 0;
-        for(let i = 0; i <= this.playlist.length; i++){
-            for(let j = 0; j <= this.now_playing.length; j ++){
-                if (this.playlist.indexOf[i] == this.now_playing.indexOf[j]){
-                    return index = this.playlist.indexOf[i + 1];
-                } else {
-                    return false;
-                }
+    getNextSong(){
+        var index;
+        this.playlist.forEach((song,song_index) => {
+            if(song?.id == this.now_playing?.id){
+                index = song_index;
             }
+        });
+        if (this.playlist.length > index + 1){
+            return false;
+        } else {
+            next = this.playlist[index + 1];
+            return next;
         }
     },
     getPreviousSong() {
-        let index = 0;
-        for(let i = 0; i <= this.playlist.length; i++){
-            for(let j = 0; j <= this.now_playing.length; j ++){
-                if (this.playlist.indexOf[i] == this.now_playing.indexOf[j]){
-                    index = this.playlist.indexOf[i - 1];
-                    return index;
-                } else {
-                    return false;
-                }
+        var index;
+        this.playlist.forEach((song,song_index) => {
+            if(song?.id == this.now_playing?.id){
+                index = song_index;
             }
+        });
+        if (this.playlist.length > index - 1){
+            return false;
+        } else {
+            previous = this.playlist[index - 1];
+            return previous;
         }
     },
     resetNowPlaying() {

@@ -1,15 +1,60 @@
 <script>
+import songs from '../data/songs'
+import { player } from '../stores/player'
+import IconHeart from '../components/icons/IconHeart.vue'
+import IconCaretUp from '../components/icons/IconCaretUp.vue'
+export default{
+    components: {IconHeart, IconCaretUp},
+    data() {
+        return{
+            search: '',
+            show_favorites: false,
+            songs: songs,
+            active: true,
+        }
+    },
+    methods: {
+        handleScroll(event) {
+            this.$refs.header.classList.value = event.target.scrollTop > 100 ? 'scrolled' : '';
+    },
+    computed: {
+    filtered_songs() {
+        return this.songs;
+    }
+    },
+    getTime(duration){
+        let mins = ~~((duration % 3600) / 60);
+        let secs = ~~duration % 60;
+        let combined = mins + ":"+ (secs < 10 ? '0' : '') + secs;
+        return combined;
+    },
+    getArtist(artist){
+        let empty_artist= '';
+        artist.forEach(art, index => {
+            if (index != Object.keys(songs).length - 1){
+                empty_artist = empty_artist + art.name + ", ";
+            }
+            return empty_artist;
+        });
+    },
+    sortBy(){
 
+    },
+    selectSong(song){
+        player.setNowPlaying(song);
+    }
+}
+}
 </script>
 <template>
     <div id="songs-view" @scroll="handleScroll">
     <div class="wrapper-header">
         <h1>SONGS</h1>
         <div class="wrapper-search">
-            <input id="input-search" placeholder="Search by title..." />
+            <input v-model="search" id="input-search" placeholder="Search by title..." />
         </div>
         <div class="wrapper-settings">
-            <button id="btn-show-favorites">Show Favorites</button>
+            <button id="btn-show-favorites" @click="show_favorites ? show_favorites = true : show_favorites = false" v-bind:class="{active: show_favorites}">Show Favorites</button>
         </div>
     </div>
     <div class="wrapper-songs">
@@ -28,19 +73,19 @@
                 </th>
             </tr>
             <!-- Loop goes on this <tr> element -->
-            <tr class="song">
+            <tr class="song" v-for="(song, index) in filtered_songs" @dblclick="selectSong(song)">
                 <td id="td-index">
                     <IconPlay />
-                    <span id="txt-index">1</span>
+                    <span id="txt-index">{{index + 1}}</span>
                 </td>
                 <td id="td-title">
-                    <img src="https://i.scdn.co/image/ab67616d00001e02980c9d288a180838cd12ad24" />
-                    DEEP (feat. Nonô)
+                    <img: src="song.album.images[index].url" />
+                    {{song.name}}
                 </td>
-                <td id="td-artist">Example, Bou, Nonô</td>
-                <td id="td-album">We May Grow Old But We Never Grow Up</td>
+                <td id="td-artist">{{getArtist(song.artists)}}</td>
+                <td id="td-album">{{song.album.name}}</td>
                 <td id="td-duration">
-                    3:07
+                    {{getTime(song.duration_ms)}}
                     <IconHeart />
                 </td>
             </tr>
