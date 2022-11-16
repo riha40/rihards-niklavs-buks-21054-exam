@@ -7,43 +7,49 @@ export default{
     components: {IconHeart, IconCaretUp},
     data() {
         return{
-            search: '',
-            show_favorites: false,
+            player,
             songs: songs,
-            active: true,
         }
     },
     methods: {
         handleScroll(event) {
             this.$refs.header.classList.value = event.target.scrollTop > 100 ? 'scrolled' : '';
     },
-    computed: {
-    filtered_songs() {
-        return this.songs;
-    }
-    },
-    getTime(duration){
-        let mins = ~~((duration % 3600) / 60);
-        let secs = ~~duration % 60;
-        let combined = mins + ":"+ (secs < 10 ? '0' : '') + secs;
+    getTime(milliseconds){
+        let seconds = ~~(milliseconds / 1000);
+        let minutes = ~~(seconds / 60);
+        seconds = seconds % 60;
+        minutes = minutes % 60;
+        let combined = minutes + ":"+ (seconds < 10 ? '0' : '') + seconds;
         return combined;
     },
-    getArtist(artist){
-        let empty_artist= '';
-        artist.forEach(art, index => {
-            if (index != Object.keys(songs).length - 1){
-                empty_artist = empty_artist + art.name + ", ";
+    getArtist(artists){
+        let name = '';
+        let songs_obj = Object.keys(artists);
+        artists.forEach((artist, index) => {
+            if(index == songs_obj.length){
+                name = artist.name;
+            } else {
+                name = name + artist.name +", ";
             }
-            return empty_artist;
         });
+        return name;
     },
     sortBy(){
 
     },
     selectSong(song){
         player.setNowPlaying(song);
-    }
-}
+    },
+    toggle() {
+        this.isActive = !this.enable;
+    },
+    },
+    computed: {
+        song_list() {
+            return this.songs;
+        }
+    },   
 }
 </script>
 <template>
@@ -51,10 +57,10 @@ export default{
     <div class="wrapper-header">
         <h1>SONGS</h1>
         <div class="wrapper-search">
-            <input v-model="search" id="input-search" placeholder="Search by title..." />
+            <input id="input-search" placeholder="Search by title..." />
         </div>
         <div class="wrapper-settings">
-            <button id="btn-show-favorites" @click="show_favorites ? show_favorites = true : show_favorites = false" v-bind:class="{active: show_favorites}">Show Favorites</button>
+            <button id="btn-show-favorites" :class="{active:isActive}" @click="isActive = !isActive">Show Favorites</button>
         </div>
     </div>
     <div class="wrapper-songs">
@@ -73,13 +79,13 @@ export default{
                 </th>
             </tr>
             <!-- Loop goes on this <tr> element -->
-            <tr class="song" v-for="(song, index) in filtered_songs" @dblclick="selectSong(song)">
+            <tr class="song" v-for="(song, index) in song_list" @dblclick="selectSong(song)">
                 <td id="td-index">
                     <IconPlay />
                     <span id="txt-index">{{index + 1}}</span>
                 </td>
                 <td id="td-title">
-                    <img: src="song.album.images[index].url" />
+                    <img :src="song.album.images[1].url" />
                     {{song.name}}
                 </td>
                 <td id="td-artist">{{getArtist(song.artists)}}</td>

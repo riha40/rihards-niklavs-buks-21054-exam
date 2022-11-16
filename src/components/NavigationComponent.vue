@@ -2,7 +2,7 @@
 export default {
     name: "NavigationComponent",
     data(){
-        return {routers: [{path: '/albums', component: 'Albums'}, {path: '/', component: 'Songs'}, {path: '/about', component: 'About'}]}
+        return {routes: [{path: '/albums', component: 'Albums'}, {path: '/', component: 'Songs'}, {path: '/about', component: 'About'}]}
     }
     
 }
@@ -10,7 +10,7 @@ export default {
 <template>
     <nav id="nav-main" class="wrapper-navigation">
         <ol>
-            <li v-for="router in routers">
+            <li v-for="router in routes">
                 <RouterLink :to="{path: router.path}">{{router.component}}</RouterLink>
             </li>
         </ol>

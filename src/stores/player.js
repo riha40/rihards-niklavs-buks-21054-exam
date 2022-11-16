@@ -4,16 +4,16 @@ export const player = reactive({
     playlist   : [],
     now_playing: {}, // SONG OBJECT
     setPlaylist(songs) {
-        playlist.push(songs);
+        this.playlist = songs;
     },
     setNowPlaying(song) {
-        this.now_playing(song); //atg
+        this.now_playing = song; 
     },
     getNowPlayingSongId() {
         return this.now_playing?.id;
     },
     getNowPlaying() {
-        return this.now_playing; //atg
+        return this.now_playing; 
     },
     getNowPlayingAlbumID() {
         return this.now_playing?.album?.id ?? null;
@@ -40,8 +40,7 @@ export const player = reactive({
         if (this.playlist.length > index + 1){
             return false;
         } else {
-            next = this.playlist[index + 1];
-            return next;
+            return this.playlist[index + 1];
         }
     },
     getPreviousSong() {
@@ -54,8 +53,7 @@ export const player = reactive({
         if (this.playlist.length > index - 1){
             return false;
         } else {
-            previous = this.playlist[index - 1];
-            return previous;
+            return this.playlist[index - 1];
         }
     },
     resetNowPlaying() {
