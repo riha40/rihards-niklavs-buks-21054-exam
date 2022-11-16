@@ -1,27 +1,40 @@
+<script>
+import { auth } from '/auth.js'
+import songs from '../data/songs'
+export default {
+    data() {
+        return {
+            auth,
+            hidden: false,
+            visible: true,
+            Name: auth.user.name,
+            Surname: auth.user.surname,
+            Code: auth.user.code
+        }
+    },
+}
+</script>
 <template>
     <div id="about-view">
     <div class="wrapper-header">
         <h1>ABOUT ME</h1>
         <div class="settings">
-            <button id="btn-edit">Edit Form</button>
-            <button id="btn-save">Save Form</button>
+            <div v-if="visible"><button id="btn-show-favorites">Edit Form</button></div>
+            <div v-if="hidden"><button id="btn-save">Save Form</button></div>
         </div>
     </div>
     <form>
         <div class="wrapper-input">
             <label>NAME</label>
-            <input id="input-name" />
-            <p id="txt-name">John</p>
+            <div><input v-model="Name" id="input-name" /></div>
         </div>
         <div class="wrapper-input">
             <label>SURNAME</label>
-            <input id="input-surname" />
-            <p id="txt-surname">Smith</p>
+            <div><input v-model="Surname" id="input-surname" /></div>
         </div>
         <div class="wrapper-input">
             <label>STUDENT CODE</label>
-            <input id="input-code" />
-            <p id="txt-code">IT1234</p>
+            <div><input v-model="Code" id="input-code" /></div>
         </div>
         <div class="wrapper-songs">
             <label>FAVORITE SONGS</label>

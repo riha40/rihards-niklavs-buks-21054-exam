@@ -78,7 +78,6 @@ export default{
                     <IconCaretUp />
                 </th>
             </tr>
-            <!-- Loop goes on this <tr> element -->
             <tr class="song" v-for="(song, index) in song_list" @dblclick="selectSong(song)">
                 <td id="td-index">
                     <IconPlay />
