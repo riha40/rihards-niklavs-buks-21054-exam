@@ -42,5 +42,4 @@ toggleFavorite(songID) { //mainīt
 getFavoriteSongs() {
     return this.user.favorite_songs;
 }
-
 })
