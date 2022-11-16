@@ -1,11 +1,12 @@
 import { reactive } from 'vue'
+import router from './src/router'
 
 export const auth = reactive({
     user: {
         name: 'rihards',
         surname: 'buks',
         code: 'IT21054',
-        favorite_songs: localStorage.getItem(favorite_songs) ?? [],
+        favorite_songs: localStorage.favorite_songs ?? [],
     },
 
 is_authenticated: localStorage.is_authenticated ?? false,
@@ -17,7 +18,7 @@ setUserData(name, surname, code) {
 },
 
 authenticate(email, password) {
-    if (email == 'rihardsniklavs.buks@va.lv' && password == '123456' && password >= 6){
+    if (email == 'rihardsniklavs.buks@va.lv' && password == '123456'){
         localStorage.is_authenticated = true;
         this.is_authenticated = true;
         router.replace({path: '/'});

@@ -1,3 +1,20 @@
+<script>
+import { auth } from '/auth.js'
+export default {
+    data() {
+        return {
+            email: '',
+            password: '',
+            auth
+        }
+    },
+    computed: {
+        isButtonDisabled() {
+            return this.email.length < 1 || this.password.length < 6;
+        }
+    }
+}
+</script>
 <template>
     <div id="login-view">
         <form class="login-form">
@@ -5,9 +22,9 @@
                 <img src="@/assets/logo.svg" />
                 <div>KRAKEN.FM</div>
             </div>
-            <input id="input-email" placeholder="E-mail" />
-            <input id="input-password" placeholder="Password" />
-            <button id="btn-submit">LOGIN</button>
+            <input v-model="email" id="input-email" placeholder="E-mail"  />
+            <input v-model="password" id="input-password" type="password" placeholder="Password" />
+            <button id="btn-submit" :disabled="isButtonDisabled" @click="auth.authenticate(email, password)">LOGIN</button>
         </form>
     </div>
 </template>

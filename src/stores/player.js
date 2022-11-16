@@ -31,7 +31,7 @@ export const player = reactive({
         return this.now_playing?.preview_url;
     },
     getNextSong(){ //apskatīt vel
-        const index = 0;
+        let index = 0;
         for(let i = 0; i <= this.playlist.length; i++){
             for(let j = 0; j <= this.now_playing.length; j ++){
                 if (this.playlist.indexOf[i] == this.now_playing.indexOf[j]){
@@ -43,11 +43,12 @@ export const player = reactive({
         }
     },
     getPreviousSong() {
-        const index = 0;
+        let index = 0;
         for(let i = 0; i <= this.playlist.length; i++){
             for(let j = 0; j <= this.now_playing.length; j ++){
                 if (this.playlist.indexOf[i] == this.now_playing.indexOf[j]){
-                    return index = this.playlist.indexOf[i - 1];
+                    index = this.playlist.indexOf[i - 1];
+                    return index;
                 } else {
                     return false;
                 }
